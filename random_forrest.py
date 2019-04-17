@@ -14,6 +14,7 @@ import matplotlib.pyplot as plt
 
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import RandomForestClassifier as RandomForest
 from sklearn.metrics import confusion_matrix
 
 from confusion import plot_confusion_matrix
@@ -24,13 +25,13 @@ df_power = pd.read_csv(url)
 
 
 # Split the dataset into training and testing sets
-predictors = df_power.columns[:-13]
+df_power = df_power_s1.copy()
+predictors = df_power.columns[1:-2]#df_power.columns[:-13]
 frac_test_size = 0.25
 X_train, X_test, y_train, y_test= train_test_split(df_power[predictors],
-                                                                df_power['label'], 
+                                                                df_power['State'], 
                                                                 test_size=frac_test_size)
 print("The proportion of seizure activity in training is" ,np.sum(y_train)/len(y_train))
-
 
 min_depth = 10
 max_depth = 100
@@ -82,7 +83,7 @@ def determine_depth_tree(X_train,y_train,
        
 # Results of the first model
 
-model_rf = RandomForestClassifier(n_estimators = 500,max_depth=100, class_weight="balanced")
+model_rf = RandomForestClassifier(n_estimators = 500,max_depth=1000, class_weight="balanced")
 model_rf.fit(X_train,y_train)
 y_pred = model_rf.predict(X_test)
 

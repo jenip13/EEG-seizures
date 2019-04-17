@@ -24,7 +24,7 @@ from confusion import plot_confusion_matrix
 
 
 # Split the dataset into training and testing sets
-df_power = df_power_s1.copy()
+df_power = df_power_s2.copy()
 predictors = df_power.columns[:-2]#df_power.columns[:-13]
 frac_test_size = 0.25
 X_train, X_test, y_train, y_test= train_test_split(df_power[predictors],
